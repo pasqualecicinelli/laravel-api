@@ -9,6 +9,9 @@ class Technology extends Model
 {
     use HasFactory;
 
+    // Nasconde le tabelle ponte quando vediamo le api projects
+    protected $hidden = ['pivot'];
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);
