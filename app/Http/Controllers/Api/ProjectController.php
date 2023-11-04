@@ -18,7 +18,7 @@ class ProjectController extends Controller
     {
         $projects = Project::select("id", "name_prog", "link")
             ->paginate(5);
-        return response()->json([$projects]);
+        return response()->json($projects);
 
     }
 
