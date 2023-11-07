@@ -16,56 +16,28 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::select("id", "name_prog", "link", "type_id")
+        $projects = Project::select("id", "name_prog", "link", "slug", "type_id")
             ->with('technologies:id,label,color', 'type:id,developed_part')
+            ->orderByDesc('id')
             ->paginate(4);
         return response()->json($projects);
 
         //Specifichiamo i campi che vogliamo vedere in vue
     }
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $project = Project::select("id", "name_prog", "link", "slug", "type_id")
+            ->where('id', $id)
+            ->with('technologies:id,label,color', 'type:id,developed_part')
+            ->first();
+        return response()->json($project);
+    }
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
 }
