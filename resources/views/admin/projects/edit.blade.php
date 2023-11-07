@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endsection
+
 @section('content')
     <h3>Modifica il Progetto</h3>
 
@@ -86,16 +92,16 @@
                     @enderror
                 </div>
 
-                <div class="col-4">
+                <div class="col-4 position-relative">
 
                     @if ($project->cover_image)
                         <span
-                            class="position-absolute top-0 start-100 translate-middle badge bg-danger delete-image-button">
-                            <i class="fa-solid text-danger fa-trash-can" id="delete-image-button"></i>
+                            class="position-absolute top-0 start-100 translate-middle badge bg-danger delete-image-button m-1">
+                            <i class="fa-solid fa-trash-can" id="delete-image-button"></i>
                             <span class="visually-hidden">delete image</span>
                         </span>
                     @endif
-                    <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid" id="cover-image-preview">
+                    <img src="{{ asset('/storage/' . $project->cover_image) }}" class="img-fluid" id="cover_image_preview">
                 </div>
             </div>
         </div>
@@ -177,15 +183,18 @@
 
 @endsection
 
+{{-- TODO: AGGIUSTARE PREVIEW E DELETE --}}
+
 @section('script')
     <script type="text/javascript">
         const inputFileElem = document.getElementById('cover_image');
-        const coverImagePreviw = document.getElementById('cover_image_previw');
+        const coverImagePreview = document.getElementById('cover_image_preview');
 
-        if (!coverImagePreviw.getAttribute('src') || coverImagePreviw.getAttribute('src')) == "https://placehold.co/400" {
+        if (!coverImagePreview.getAttribute('src') || coverImagePreview.getAttribute('src') ==
+            "http://127.0.0.1:8000/storage") {
 
             //Se non abbiamo la cover, mettiamo questa img di default
-            coverImagePreviw.src = "https://placehold.co/400";
+            coverImagePreview.src = "https://placehold.co/400";
         }
 
         /** Intercettiamo il 'change' e con file generiamo un URL
@@ -193,7 +202,7 @@
          */
         inputFileElem.addEventListner('change', function() {
             const [file] = this.files;
-            coverImagePreviw.src = URL.createObjectUrl(file);
+            coverImagePreview.src = URL.createObjectUrl(file);
         })
     </script>
 

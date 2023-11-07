@@ -142,15 +142,17 @@
     </form>
 @endsection
 
+{{-- TODO: AGGIUSTARE PREVIEW E DELETE --}}
+
 @section('script')
     <script type="text/javascript">
         const inputFileElem = document.getElementById('cover_image');
-        const coverImagePreviw = document.getElementById('cover_image_previw');
+        const coverImagePreview = document.getElementById('cover_image_preview');
 
-        if (!coverImagePreviw.getAttribute('src')) {
+        if (!coverImagePreview.getAttribute('src')) {
 
             //Se non abbiamo la cover, mettiamo questa img di default
-            coverImagePreviw.src = "https://placehold.co/400";
+            coverImagePreview.src = "https://placehold.co/400";
         }
 
         /** Intercettiamo il 'change' e con file generiamo un URL
@@ -158,7 +160,7 @@
          */
         inputFileElem.addEventListner('change', function() {
             const [file] = this.files;
-            coverImagePreviw.src = URL.createObjectUrl(file);
+            coverImagePreview.src = URL.createObjectUrl(file);
         })
     </script>
 @endsection
