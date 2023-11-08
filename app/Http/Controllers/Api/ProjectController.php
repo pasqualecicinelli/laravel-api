@@ -40,4 +40,13 @@ class ProjectController extends Controller
         return response()->json($project);
     }
 
+    public function projectsByType($type_id)
+    {
+        $projects = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
+            ->where("type_id", $type_id)
+            ->with('technologies:id,label,color', 'type:id,developed_part')
+            ->orderByDesc('id')
+            ->paginate(4);
+        return response()->json($projects);
+    }
 }
