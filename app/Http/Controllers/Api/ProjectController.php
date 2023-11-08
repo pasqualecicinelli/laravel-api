@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::select("id", "name_prog", "link", "slug", "type_id")
+        $projects = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->orderByDesc('id')
             ->paginate(4);
@@ -33,7 +33,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::select("id", "name_prog", "link", "slug", "type_id")
+        $project = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
             ->where('id', $id)
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->first();

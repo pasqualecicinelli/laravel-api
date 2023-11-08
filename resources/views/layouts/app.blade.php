@@ -34,7 +34,7 @@
             </div>
         </main>
     </div>
-    @yield('script')
+    @yield('scripts')
     @yield('modals')
 </body>
 

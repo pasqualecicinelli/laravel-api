@@ -142,9 +142,9 @@
     </form>
 @endsection
 
-{{-- TODO: AGGIUSTARE PREVIEW E DELETE --}}
+{{-- TODO: AGGIUSTARE DELETE --}}
 
-@section('script')
+@section('scripts')
     <script type="text/javascript">
         const inputFileElem = document.getElementById('cover_image');
         const coverImagePreview = document.getElementById('cover_image_preview');
@@ -158,9 +158,9 @@
         /** Intercettiamo il 'change' e con file generiamo un URL
          *   questo serve per aggiornare la img di previw
          */
-        inputFileElem.addEventListner('change', function() {
+        inputFileElem.addEventListener('change', function() {
             const [file] = this.files;
-            coverImagePreview.src = URL.createObjectUrl(file);
+            coverImagePreview.src = URL.createObjectURL(file);
         })
     </script>
 @endsection
