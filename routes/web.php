@@ -35,6 +35,8 @@ Route::middleware(['auth', 'verified'])
     Route::patch('projects/trash/{project}/restore', [ProjectController::class, 'restore'])->name('projects.trash.restore');
     Route::delete('projects/trash/{project}', [ProjectController::class, 'forceDestroy'])->name('projects.trash.force-destroy');
     Route::delete('projects/{project}/delete-image', [ProjectController::class, 'deleteImage'])->name('projects.delete-image');
+    Route::patch('/projects/{project}/publish', [ProjectController::class, 'publish'])->name('projects.publish');
+
 
     //Nel url stampo lo slug al posto dell'Id
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
