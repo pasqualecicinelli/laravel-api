@@ -8,11 +8,14 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
+use App\Mail\ProjectPublished;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 
 class ProjectController extends Controller
@@ -204,6 +207,20 @@ class ProjectController extends Controller
         Storage::delete($project->cover_image);
         $project->cover_image = null;
         $project->save();
+        return redirect()->back();
+    }
+
+    public function publish(Project $project, Request $request)
+    {
+
+        $data = $request->all();
+        $project->published = !Arr::exists($data, 'published') ? 1 : null;
+        $project->save();
+
+        $user = Auth::user();
+
+        Mail::to($user->email)->send(new ProjectPublished($project));
+
         return redirect()->back();
     }
 }

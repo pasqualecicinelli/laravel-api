@@ -183,8 +183,6 @@
 
 @endsection
 
-{{-- TODO: AGGIUSTARE DELETE --}}
-
 @section('scripts')
     <script type="text/javascript">
         const inputFileElem = document.getElementById('cover_image');
