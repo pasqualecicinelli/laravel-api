@@ -21,8 +21,6 @@
                 <th scope="col">Parte sviluppata</th>
                 <th scope="col">Tecnologia</th>
                 <th scope="col">Pubblicato</th>
-                <th scope="col">Created at</th>
-                <th scope="col">Updated at</th>
                 <th scope="col">D-T-M</th>
             </tr>
         </thead>
@@ -49,9 +47,6 @@
                         </form>
                     </td>
 
-
-                    <td>{{ $project->created_at }}</td>
-                    <td>{{ $project->updated_at }}</td>
                     <td>
                         <a href="{{ route('admin.projects.show', $project) }}"><i
                                 class="fa-solid text-primary fa-eye"></i></a>
