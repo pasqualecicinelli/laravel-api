@@ -217,9 +217,9 @@ class ProjectController extends Controller
         $project->published = !Arr::exists($data, 'published') ? 1 : null;
         $project->save();
 
-        //  $user = Auth::user();
+        $user = Auth::user();
 
-        //   Mail::to($user->email)->send(new ProjectPublished($project));
+        Mail::to($user->email)->send(new ProjectPublished($project));
 
         return redirect()->back();
     }
