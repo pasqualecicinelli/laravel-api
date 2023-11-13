@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use League\CommonMark\Extension\DescriptionList\Node\Description;
 
 class Project extends Model
 {
@@ -32,5 +33,14 @@ class Project extends Model
         return $badges_html;
     }
 
+    public function getAbstract($chars = 50)
+    {
+        return strlen($this->description) > $chars ? substr($this->description, 0, $chars) . '...' : $this->description;
+    }
+
+    public function getAbstractLink($chars = 40)
+    {
+        return strlen($this->link) > $chars ? substr($this->link, 0, $chars) . '...' : $this->link;
+    }
 
 }

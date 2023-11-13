@@ -20,6 +20,13 @@ class ProjectController extends Controller
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->orderByDesc('id')
             ->paginate(4);
+
+        foreach ($projects as $project) {
+
+            $project->description = $project->getAbstract();
+            $project->link = $project->getAbstractLink();
+
+        }
         return response()->json($projects);
 
         //Specifichiamo i campi che vogliamo vedere in vue
