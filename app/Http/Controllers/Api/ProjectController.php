@@ -16,7 +16,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
+        //Specifichiamo i campi che vogliamo vedere in vue
+
+        $projects = Project::select("id", "name_prog", "link", "slug", 'description', 'cover_image', "type_id")
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->orderByDesc('id')
             ->paginate(4);
@@ -25,11 +27,12 @@ class ProjectController extends Controller
 
             $project->description = $project->getAbstract();
             $project->link = $project->getAbstractLink();
+            $project->cover_image = $project->getUriImg();
+            // $project->cover_image = Storage::url($project->cover_image);
 
         }
         return response()->json($projects);
 
-        //Specifichiamo i campi che vogliamo vedere in vue
     }
 
     /**
@@ -40,20 +43,33 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
+        $project = Project::select("id", "name_prog", "link", "slug", 'description', 'cover_image', "type_id")
             ->where('id', $id)
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->first();
+        $project->cover_image = $project->getUriImg();
+        // $project->cover_image = Storage::url($project->cover_image);
+
         return response()->json($project);
     }
 
     public function projectsByType($type_id)
     {
-        $projects = Project::select("id", "name_prog", "link", "slug", 'description', "type_id")
+        $projects = Project::select("id", "name_prog", "link", "slug", 'description', 'cover_image', "type_id")
             ->where("type_id", $type_id)
             ->with('technologies:id,label,color', 'type:id,developed_part')
             ->orderByDesc('id')
             ->paginate(4);
+
+        foreach ($projects as $project) {
+
+            $project->description = $project->getAbstract();
+            $project->link = $project->getAbstractLink();
+            $project->cover_image = $project->getUriImg();
+            //$project->cover_image = Storage::url($project->cover_image);
+
+        }
+
         return response()->json($projects);
     }
 }

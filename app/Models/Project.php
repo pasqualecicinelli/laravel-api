@@ -5,7 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+
 use League\CommonMark\Extension\DescriptionList\Node\Description;
+
 
 class Project extends Model
 {
@@ -41,6 +44,11 @@ class Project extends Model
     public function getAbstractLink($chars = 40)
     {
         return strlen($this->link) > $chars ? substr($this->link, 0, $chars) . '...' : $this->link;
+    }
+
+    public function getUriImg()
+    {
+        return $this->cover_image ? Storage::url($this->cover_image) : null;
     }
 
 }
